@@ -13,5 +13,5 @@ A lightweight, web-based To-Do List application built with **Streamlit**. This a
 1. **Clone the repository:**
    ```bash
    git clone https://github.com
-   cd todo-list-python
+   cd streamlit-task-manager
 #### **This project is a work in progress, as of April 7th, 2026.**
