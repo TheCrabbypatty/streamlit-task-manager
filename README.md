@@ -14,4 +14,8 @@ A lightweight, web-based To-Do List application built with **Streamlit**. This a
    ```bash
    git clone https://github.com
    cd streamlit-task-manager
-#### **This project is a work in progress, as of April 7th, 2026.**
+
+#### **This project is a work in progress, as of April 12th, 2026.**
+
+## 🛠️ Changelog (April 12th)
+#### Currently pivoting towards a button-based system due to StreamLit incompatibility with the automatic updating infrastructure. 
