@@ -10,6 +10,10 @@ global event_title
 if "event_title" not in st.session_state:
     st.session_state.event_title = []
 
+global delete_list
+if "delete_list" not in st.session_state:
+    st.session_state.delete_list = []
+
 
 def main(): 
     setup()
@@ -33,16 +37,22 @@ def button():
 def checkbox():
     for i in range(st.session_state.checkbox_num):
         try:
-            st.checkbox(st.session_state.event_title[i], key = f"task_{i}", on_change = hidden, args = (f"task_{i}", ))
+            if i not in st.session_state.delete_list:
+                st.checkbox(st.session_state.event_title[i], key = f"task_{i}", on_change = checked, args = (f"task_{i}", ))
         except IndexError:
             pass
         
-#
-#def checked():
-#    for j in range(st.session_state.checkbox_num):
-#        if st.session_state[f"task_{j}"]:
-#           st.session_state.visibility[j] = "hidden"
-#
+
+def checked(key):
+    letter, number = key.split("_")
+    number = int(number)
+    st.session_state.delete_list.append(number)
+    st.session_state.event_title.pop(number)
+    st.session_state.checkbox_num -= 1
+
+
+    
+
         
 
 if __name__ == "__main__":
