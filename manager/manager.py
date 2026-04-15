@@ -25,31 +25,37 @@ def main():
 def setup():
     st.title("To-do List🚀")
 
-def button():
-    add_event = st.button("Add event!", key = "add")
-    events = st.text_input("Event name 👇", placeholder = "+ Add Task", key = "event").strip()
-    if add_event and not len(st.session_state.event) == 0:
-        st.session_state.event_title.append(events)
-        st.session_state.checkbox_num += 1
-        
+col1, col2 = st.columns(2)
 
-                       
-def checkbox():
-    for i in range(st.session_state.checkbox_num):
-        try:
-            if i not in st.session_state.delete_list:
-                st.checkbox(st.session_state.event_title[i], key = f"task_{i}", on_change = checked, args = (f"task_{i}", ))
-        except IndexError:
-            pass
-        
+with col1:
+    def button():
+        add_event = st.button("Add event!", key = "add")
+        events = st.text_input("Event name 👇", placeholder = "+ Add Task", key = "event").strip()
+        if add_event and not len(st.session_state.event) == 0:
+            st.session_state.event_title.append(events)
+            st.session_state.checkbox_num += 1
+            st.toast("Your event has been added!", icon = "👍", duration = 1)
+            
 
-def checked(key):
-    letter, number = key.split("_")
-    number = int(number)
-    st.session_state.delete_list.append(number)
-    st.session_state.event_title.pop(number)
-    st.session_state.checkbox_num -= 1
+                        
+    def checkbox():
+        for i in range(st.session_state.checkbox_num):
+            try:
+                if i not in st.session_state.delete_list:
+                    st.checkbox(st.session_state.event_title[i], key = f"task_{i}", on_change = checked, args = (f"task_{i}", ))
+            except IndexError:
+                pass
+            
 
+    def checked(key):
+        letter, number = key.split("_")
+        number = int(number)
+        st.session_state.delete_list.append(number)
+        st.session_state.event_title[number] = ""
+
+
+with col2:
+    ...
 
     
 
