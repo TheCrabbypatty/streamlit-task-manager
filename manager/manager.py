@@ -1,10 +1,11 @@
 import streamlit as st
 import pandas as pd
-import PIL
 
 global checkbox_num
 if "checkbox_num" not in st.session_state:
-    st.session_state.checkbox_num = 0
+    with open("todo.txt", "r") as file:
+        l = file.readlines()
+    st.session_state.checkbox_num = len(l)
 
 global event_title
 if "event_title" not in st.session_state:
@@ -32,13 +33,18 @@ with col1:
         add_event = st.button("Add event!", key = "add")
         events = st.text_input("Event name 👇", placeholder = "+ Add Task", key = "event").strip()
         if add_event and not len(st.session_state.event) == 0:
-            st.session_state.event_title.append(events)
+            with open("todo.txt", "a") as file:
+                file.write(f"{events}\n")
             st.session_state.checkbox_num += 1
             st.toast("Your event has been added!", icon = "👍", duration = 1)
             
 
                         
     def checkbox():
+        with open("todo.txt", "r") as file:
+            st.session_state.event_title = file.readlines()
+        with open("delete.txt", "r") as file:
+            st.session_state.delete_list = file.readlines()
         for i in range(st.session_state.checkbox_num):
             try:
                 if i not in st.session_state.delete_list:
@@ -50,12 +56,17 @@ with col1:
     def checked(key):
         letter, number = key.split("_")
         number = int(number)
-        st.session_state.delete_list.append(number)
-        st.session_state.event_title[number] = ""
+        with open("delete.txt", "a") as file:
+            file.write(f"{number}\n")
+        with open("todo.txt", "r") as file:
+            lines = file.readlines()    
+        lines[number] = ""
+        with open("todo.txt", "w") as file:
+            file.writelines(lines)
+        
 
 
-with col2:
-    ...
+
 
     
 
