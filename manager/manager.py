@@ -45,6 +45,7 @@ with col1:
             st.session_state.event_title = file.readlines()
         with open("delete.txt", "r") as file:
             st.session_state.delete_list = file.readlines()
+            st.session_state.delete_list = [int(x.strip()) for x in file.readlines() if x.strip()]
         for i in range(st.session_state.checkbox_num):
             try:
                 if i not in st.session_state.delete_list:
@@ -60,17 +61,10 @@ with col1:
             file.write(f"{number}\n")
         with open("todo.txt", "r") as file:
             lines = file.readlines()    
-        lines[number] = ""
+            lines[number] = f"\n"
         with open("todo.txt", "w") as file:
             file.writelines(lines)
-        
 
-
-
-
-    
-
-        
 
 if __name__ == "__main__":
     main()
