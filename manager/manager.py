@@ -20,6 +20,10 @@ global event_date
 if "event_date" not in st.session_state:
     st.session_state.event_date = []
 
+global priority
+if "priority" not in st.session_state:
+    st.session_state.priority = []
+
 def main(): 
     setup()
     button()
@@ -37,11 +41,14 @@ with col1:
         add_event = st.button("Add event!", key = "add")
         events = st.text_input("Event name 👇", placeholder = "+ Add Task", key = "event").strip()
         dates = st.date_input("Event date 👇", format = "MM/DD/YYYY", key = "date")
+        priorites = st.segmented_control("Priority⚠️", options = ["Low", "Medium", "High"], selection_mode = "single", key = "priority"), 
         if add_event and not len(st.session_state.event) == 0:
             with open("todo.txt", "a") as file:
                 file.write(f"{events}\n")
             with open("date.txt", "a") as file:
                 file.write(f"{dates}\n")
+            with open("priority.txt", "a") as file:
+                file.write(f"{priorites}\n")
             st.session_state.checkbox_num += 1
             st.toast("Your event has been added!", icon = "👍", duration = 1)
             
@@ -58,6 +65,16 @@ with col1:
                 pass
         with open("date.txt", "r") as file:
             st.session_state.event_date = file.readlines()
+        with open("priority.txt", "r") as file:
+            for line in file.readlines():
+                if line == "Low":
+                    st.session_state.priority.append("Low")
+                elif line == "Medium":
+                    st.session_state.priority.append("Medium")
+                elif line == "High":
+                    st.session_state.priority.append("High")
+                else:
+                    st.session_state.priority.append("Nothing")
         for i in range(st.session_state.checkbox_num):
             try:
                 if i not in st.session_state.delete_list:
@@ -80,6 +97,11 @@ with col1:
             lines = file.readlines()
             lines[number] = f"\n"
         with open("date.txt", "w") as file:
+            file.writelines(lines)
+        with open("priority.txt", "r") as file:
+            lines = file.readlines()
+            lines[number] = f"\n"
+        with open("priority.txt", "w") as file:
             file.writelines(lines)
 
 
