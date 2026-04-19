@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import random 
+ 
 
 global checkbox_num
 if "checkbox_num" not in st.session_state:
@@ -61,7 +61,7 @@ with col1:
         for i in range(st.session_state.checkbox_num):
             try:
                 if i not in st.session_state.delete_list:
-                    st.checkbox(f"{st.session_state.event_title[i]} :red-badge[{st.session_state.event_date[i]}]", key = f"task_{i}", on_change = checked, args = (f"task_{i}", ))
+                    st.checkbox(f"{st.session_state.event_title[i]} :orange-badge[{st.session_state.event_date[i]}]", key = f"task_{i}", on_change = checked, args = (f"task_{i}", ))
             except IndexError:
                 pass
             
@@ -87,5 +87,3 @@ if __name__ == "__main__":
     main()
 
 
-''' 
-'''
