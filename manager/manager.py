@@ -41,7 +41,7 @@ with col1:
         add_event = st.button("Add event!", key = "add")
         events = st.text_input("Event name 👇", placeholder = "+ Add Task", key = "event").strip()
         dates = st.date_input("Event date 👇", format = "MM/DD/YYYY", key = "date")
-        priorites = st.segmented_control("Priority⚠️", options = ["Low", "Medium", "High"], selection_mode = "single", key = "priority"), 
+        priorites = st.segmented_control("Priority⚠️", options = ["Low", "Medium", "High"], selection_mode = "single", required = True, default = "Low", key = "priority_input")
         if add_event and not len(st.session_state.event) == 0:
             with open("todo.txt", "a") as file:
                 file.write(f"{events}\n")
@@ -55,6 +55,7 @@ with col1:
 
                         
     def checkbox():
+        st.session_state.priority = []
         with open("todo.txt", "r") as file:
             st.session_state.event_title = file.readlines()
         with open("delete.txt", "r") as file:
@@ -67,6 +68,7 @@ with col1:
             st.session_state.event_date = file.readlines()
         with open("priority.txt", "r") as file:
             for line in file.readlines():
+                line = line.strip()
                 if line == "Low":
                     st.session_state.priority.append("Low")
                 elif line == "Medium":
@@ -74,11 +76,11 @@ with col1:
                 elif line == "High":
                     st.session_state.priority.append("High")
                 else:
-                    st.session_state.priority.append("Nothing")
+                    pass
         for i in range(st.session_state.checkbox_num):
             try:
                 if i not in st.session_state.delete_list:
-                    st.checkbox(f"{st.session_state.event_title[i]} :orange-badge[{st.session_state.event_date[i]}]", key = f"task_{i}", on_change = checked, args = (f"task_{i}", ))
+                    st.checkbox(f"{st.session_state.event_title[i]} :orange-badge[{st.session_state.event_date[i]}] :primary-badge[{st.session_state.priority[i]}]", key = f"task_{i}", on_change = checked, args = (f"task_{i}", ))
             except IndexError:
                 pass
             
