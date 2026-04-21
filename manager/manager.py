@@ -4,7 +4,7 @@ import pandas as pd
 
 global checkbox_num
 if "checkbox_num" not in st.session_state:
-    with open("todo.txt", "r") as file:
+    with open("memory/todo.txt", "r") as file:
         l = file.readlines()
     st.session_state.checkbox_num = len(l)
 
@@ -43,11 +43,11 @@ with col1:
         dates = st.date_input("Event date 👇", format = "MM/DD/YYYY", key = "date")
         priorites = st.segmented_control("Priority⚠️", options = ["Low", "Medium", "High"], selection_mode = "single", required = True, default = "Low", key = "priority_input")
         if add_event and not len(st.session_state.event) == 0:
-            with open("todo.txt", "a") as file:
+            with open("memory/todo.txt", "a") as file:
                 file.write(f"{events}\n")
-            with open("date.txt", "a") as file:
+            with open("memory/date.txt", "a") as file:
                 file.write(f"{dates}\n")
-            with open("priority.txt", "a") as file:
+            with open("memory/priority.txt", "a") as file:
                 file.write(f"{priorites}\n")
             st.session_state.checkbox_num += 1
             st.toast("Your event has been added!", icon = "👍", duration = 1)
@@ -56,17 +56,17 @@ with col1:
                         
     def checkbox():
         st.session_state.priority = []
-        with open("todo.txt", "r") as file:
+        with open("memory/todo.txt", "r") as file:
             st.session_state.event_title = file.readlines()
-        with open("delete.txt", "r") as file:
+        with open("memory/delete.txt", "r") as file:
             try:
                 st.session_state.delete_list = file.readlines()
                 st.session_state.delete_list = [int(item.strip()) for item in st.session_state.delete_list]
             except ValueError:
                 pass
-        with open("date.txt", "r") as file:
+        with open("memory/date.txt", "r") as file:
             st.session_state.event_date = file.readlines()
-        with open("priority.txt", "r") as file:
+        with open("memory/priority.txt", "r") as file:
             for line in file.readlines():
                 line = line.strip()
                 if line == "Low":
@@ -90,22 +90,22 @@ with col1:
     def checked(key):
         letter, number = key.split("_")
         number = int(number)
-        with open("delete.txt", "a") as file:
+        with open("memory/delete.txt", "a") as file:
             file.write(f"{number}\n")
-        with open("todo.txt", "r") as file:
+        with open("memory/todo.txt", "r") as file:
             lines = file.readlines()    
             lines[number] = f"\n"
-        with open("todo.txt", "w") as file:
+        with open("memory/todo.txt", "w") as file:
             file.writelines(lines)
-        with open("date.txt", "r") as file:
+        with open("memory/date.txt", "r") as file:
             lines = file.readlines()
             lines[number] = f"\n"
-        with open("date.txt", "w") as file:
+        with open("memory/date.txt", "w") as file:
             file.writelines(lines)
-        with open("priority.txt", "r") as file:
+        with open("memory/priority.txt", "r") as file:
             lines = file.readlines()
             lines[number] = f"\n"
-        with open("priority.txt", "w") as file:
+        with open("memory/priority.txt", "w") as file:
             file.writelines(lines)
 
 
