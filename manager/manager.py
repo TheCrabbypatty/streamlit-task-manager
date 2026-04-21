@@ -75,8 +75,10 @@ with col1:
                     st.session_state.priority.append("Medium")
                 elif line == "High":
                     st.session_state.priority.append("High")
+                elif line == "":
+                    st.session_state.priority.append("")
                 else:
-                    pass
+                    st.session_state.priority.append("Low")
         for i in range(st.session_state.checkbox_num):
             try:
                 if i not in st.session_state.delete_list:
