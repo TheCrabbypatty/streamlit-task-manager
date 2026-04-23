@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import os
  
- os.makedirs("memory", exist_ok=True)
+os.makedirs("memory", exist_ok=True)
 
 for fname in ["todo.txt", "date.txt", "priority.txt", "delete.txt"]:
     fpath = os.path.join("memory", fname)
