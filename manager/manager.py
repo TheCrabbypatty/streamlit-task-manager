@@ -1,6 +1,14 @@
 import streamlit as st
 import pandas as pd
+import os
  
+ os.makedirs("memory", exist_ok=True)
+
+for fname in ["todo.txt", "date.txt", "priority.txt", "delete.txt"]:
+    fpath = os.path.join("memory", fname)
+    if not os.path.exists(fpath):
+        with open(fpath, "w") as f:
+            pass
 
 global checkbox_num
 if "checkbox_num" not in st.session_state:
