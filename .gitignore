@@ -207,10 +207,6 @@ marimo/_lsp/
 __marimo__/
 
 #Python Memory Files
-date.txt
-todo.txt
-delete.txt
-priority.txt
 manager/memory/date.txt
 manager/memory/todo.txt
 manager/memory/delete.txt
