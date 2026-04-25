@@ -26,7 +26,7 @@ A lightweight, web-based To-Do List application built with **Streamlit**. This a
    You can also use the link shown to go to the streamlit app webpage: 
       [Streamlit Project](https://app-task-manager-xrtnziwwk88q6bse4zymmr.streamlit.app/)
 
-## 🪪License
+## 🪪 License
    Distrubuted under the MIT License, LICENSE.txt for more information
 
 
